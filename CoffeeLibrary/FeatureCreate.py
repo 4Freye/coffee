@@ -12,8 +12,11 @@ nltk.download('stopwords')
 class FeatureCreate:
     def __init__(self, df, series):
         self.df = df
-        self.series = self.df[series]
-        
+        if isinstance(series, str):
+            self.series = self.df[series]
+        else:
+            return "Please input a string object (column name) for series"
+            exit()
         #create list of words 
         self.corpus =  ' '.join(self.series).replace('.', ' ').replace(';', ' ').replace(',', ' ')
 
