@@ -1,3 +1,8 @@
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score
+from sklearn.ensemble import RandomForestRegressor
+import pandas as pd
+
 # Load the data.
 def read_csv(string):
     return pd.read_csv(string)
@@ -21,7 +26,7 @@ def test_split():
 # Train the model
 def train_model(X, y, features):
     X= X.loc[:,features]
-    regressor = LogisticRegression()
+    regressor = RandomForestRegressor()
     regressor.fit(X, y)
     return regressor
 
@@ -30,7 +35,7 @@ def test_train_model():
     df = read_csv(file_name)
     features = df.columns[df.columns != 'rating']
     X_train_expected, X_test_expected, y_train_expected, y_test_expected = split(df, features)
-    regressor_expected = LogisticRegression()
+    regressor_expected = RandomForestRegressor()
     regressor_expected.fit(X_train_expected, y_train_expected)
     regressor_output = train_model(X_train_expected, y_train_expected, features)
     assert regressor_output == regressor_expected
@@ -39,8 +44,8 @@ def test_train_model():
 def predict(X,y,regressor, features):
     X = X.loc[:,features]
     y_pred = regressor.predict(X)
-    y_pred_proba = regressor.predict_proba(X)
-    results = pd.DataFrame({'Actual': y['rating'], 'Predicted': y_pred, "Predicted_Proba_0": y_pred_proba[:,0],"Predicted_Proba_1": y_pred_proba[:,1]})
+    #y_pred_proba = regressor.predict_proba(X)
+    results = pd.DataFrame({'Actual': y['rating'], 'Predicted': y_pred})
     return results
 def test_predict():
     file_name = 'coffee_df_with_type_and_region.csv'
@@ -49,8 +54,8 @@ def test_predict():
     X_train, X_test, y_train, y_test = split(df, features)
     regressor = train_model(X_train,y_train, features)
     y_pred = regressor.predict(X)
-    y_pred_proba = regressor.predict_proba(X)
-    results_expected = pd.DataFrame({'Actual': y['rating'], 'Predicted': y_pred, "Predicted_Proba_0": y_pred_proba[:,0],"Predicted_Proba_1": y_pred_proba[:,1]})
+    #y_pred_proba = regressor.predict_proba(X)
+    results_expected = pd.DataFrame({'Actual': y['rating'], 'Predicted': y_pred})
     results_output = predict(X_train, y_train, regressor, features)
     assert results_output == results_expected
     

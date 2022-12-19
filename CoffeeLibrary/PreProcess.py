@@ -13,7 +13,6 @@ class PreProcess:
         self.df = clean_country(self.df, 'origin')
         self.df['origin'] = self.df['origin_clean']
         self.df = self.df.drop(columns = 'origin_clean')  
-        
             
     def clean_location(self):
         # extract state (for US) or country in string in 'location'
@@ -63,7 +62,7 @@ class PreProcess:
         
     def drop_cols(self):
         # drop 'slug', 'all_text', 'with_milk', 'name', 'review_date'
-        self.df = self.df.drop(columns = ['slug', 'all_text', 'with_milk', 'name', 'review_date'])
+        self.df = self.df.drop(columns = ['slug', 'all_text', 'with_milk', 'name', 'review_date', 'roaster'])
     
     def drop_nas(self):
         # drop rows with NaNs in cleaned dataframe
