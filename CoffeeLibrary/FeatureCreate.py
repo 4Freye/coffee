@@ -21,7 +21,7 @@ class FeatureCreate:
         self.corpus =  ' '.join(self.series).replace('.', ' ').replace(';', ' ').replace(',', ' ')
 
         # split() returns list of all the words in the string
-        self.corpus_list = corpus.split()
+        self.corpus_list = self.corpus.split()
 
         #words that aren't useful
         stop_words = set(stopwords.words('english'))
@@ -35,7 +35,7 @@ class FeatureCreate:
         # Python program to find the n most frequent words. then return dummy variables if frequent word is in series
 
         # Pass the list to instance of Counter class.
-        top_n = Counter(corpus_list).most_common(n)
+        top_n = Counter(self.corpus_list).most_common(n)
         #just get the words
         top_words = [tup[0] for tup in top_n]
         #convert to series
@@ -47,7 +47,7 @@ class FeatureCreate:
         # Python program to find the n most frequent bigrams. then return dummy variables if frequent bigram is in series
 
         # Pass the list to instance of Counter class.
-        top_n =  Counter(zip(corpus_list, islice(corpus_list, 1, None))).most_common(n)
+        top_n =  Counter(zip(self.corpus_list, islice(self.corpus_list, 1, None))).most_common(n)
 
         #just get the words
         top_words = [tup[0] for tup in top_n]
