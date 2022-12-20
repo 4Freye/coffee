@@ -14,9 +14,7 @@ class FeatureCreate:
         self.df = df
         if isinstance(series, str):
             self.series = self.df[series]
-        else:
-            return "Please input a string object (column name) for series"
-            exit()
+            
         #create list of words 
         self.corpus =  ' '.join(self.series).replace('.', ' ').replace(';', ' ').replace(',', ' ')
 
