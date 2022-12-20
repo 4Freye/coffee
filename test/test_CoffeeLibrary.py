@@ -108,4 +108,4 @@ def test_predict():
     #y_pred_proba = regressor.predict_proba(X)
     results_expected = pd.DataFrame({'Actual': y_test['rating'], 'Predicted': y_pred})
     results_output = predict(X_test, y_test, regressor, features)
-    assert results_output['Predicted'].sum(0) == results_expected['Predicted'].sum()
+    assert results_output['Predicted'].sum() == results_expected['Predicted'].sum()
